@@ -13,5 +13,8 @@ const store = configureStore({
 
 export { store, addAlbum, removeAlbum, addPhoto, removePhoto };
 
+export * from './thunks/fetchCharacters';
+export * from './thunks/addCharacter';
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
