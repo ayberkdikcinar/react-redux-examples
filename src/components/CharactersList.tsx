@@ -4,6 +4,8 @@ import { RootState, AppDispatch, addCharacter } from '../store';
 import { fetchCharacters } from '../store';
 import Skeleton from './Skeleton';
 import ExpandableCard from './ExpandableCard';
+import AlbumsList from './AlbumsList';
+import ListHeader from './ListHeader';
 
 export default function CharactersList() {
   const characters = useSelector((state: RootState) => state.characters);
@@ -32,22 +34,23 @@ export default function CharactersList() {
     if (characters.data) {
       return (
         <div>
-          <div className='flex flex-row justify-between m-3'>
-            <h2 className='m-2 text-xl'>Characters List</h2>
-            <button className='bg-blue-500 p-2 text-white hover:bg-blue-700' onClick={handleCharacterAdd}>
-              Add Character
-            </button>
-          </div>
-          <div>
-            {characters.data.map((character) => {
-              return <ExpandableCard id={character.id} text={character.name} />;
-            })}
-          </div>
+          {characters.data.map((character) => {
+            return (
+              <ExpandableCard item={character} key={character.id}>
+                <AlbumsList character={character}></AlbumsList>
+              </ExpandableCard>
+            );
+          })}
         </div>
       );
     }
 
     return null;
   }
-  return <div>{render()}</div>;
+  return (
+    <div>
+      <ListHeader label='Character' onClick={() => console.log('onn..')} />
+      <div>{render()}</div>
+    </div>
+  );
 }

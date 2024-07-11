@@ -1,25 +1,44 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice, nanoid, SerializedError } from '@reduxjs/toolkit';
 import { album } from '../../types/album';
+import { fetchAlbums } from '../thunks/fetchAlbums';
+import { addAlbum } from '../thunks/addAlbums';
 
-const initialState = [] as album[];
+const initialState = {
+  data: [] as album[],
+  isLoading: false,
+  error: null as SerializedError | null,
+};
 
 const albumsSlice = createSlice({
   name: 'albums',
   initialState: initialState,
-  reducers: {
-    addAlbum(state, action) {
-      const newAlbum = action.payload as album;
-
-      /*       state.push({title:action.payload,id:nanoid(),userId:'1'});
-       */
-    },
-    removeAlbum(state, action) {
-      const id = action.payload;
-      const albumIndex = state.findIndex((album) => album.id === id);
-      state.splice(albumIndex, 1);
-    },
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(fetchAlbums.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchAlbums.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data = action.payload;
+      state.error = null;
+    });
+    builder.addCase(fetchAlbums.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error;
+    });
+    builder.addCase(addAlbum.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(addAlbum.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data.push(action.payload);
+      state.error = null;
+    });
+    builder.addCase(addAlbum.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error;
+    });
   },
 });
 
-export const { addAlbum, removeAlbum } = albumsSlice.actions;
 export const albumsReducer = albumsSlice.reducer;

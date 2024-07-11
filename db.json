@@ -5,15 +5,11 @@
       "name": "Urgot"
     },
     {
-      "id": "1",
+      "id": "3",
       "name": "Janna"
     },
     {
       "id": "8ffb",
-      "name": "jinx"
-    },
-    {
-      "id": "adae",
       "name": "jinx"
     },
     {
@@ -25,6 +21,30 @@
       "name": "Nelson Dooley"
     }
   ],
-  "albums": [],
-  "photos": []
+  "albums": [
+    {
+      "id": "meYEEAL-fQ1jKoPb7MZZQ3",
+      "name": "Eileen Willms",
+      "characterId": "8ffb"
+    },
+    {
+      "id": "0abvhwVllmvoWRBhBLPue4",
+      "name": "Nelson Dooley",
+      "characterId": "8ffb"
+    }
+  ],
+  "photos": [
+    {
+      "id": "photo1",
+      "imageUrl": "https://picsum.photos/id/2/200/300",
+      "title": "Photo y432f",
+      "albumId": "0abvhwVllmvoWRBhBLPue4"
+    },
+    {
+      "id": "photo2",
+      "imageUrl": "https://picsum.photos/id/1/200/300",
+      "title": "Photo x435f",
+      "albumId": "0abvhwVllmvoWRBhBLPue4"
+    }
+  ]
 }

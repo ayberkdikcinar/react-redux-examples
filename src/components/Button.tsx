@@ -1,5 +1,6 @@
 import className from 'classnames';
 import { ButtonHTMLAttributes } from 'react';
+import { FaSpinner } from 'react-icons/fa';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
@@ -10,10 +11,23 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   danger?: boolean;
   outline?: boolean;
   rounded?: boolean;
+  loading?: boolean;
 };
 
-function Button({ children, primary, secondary, success, warning, danger, outline, rounded, ...rest }: ButtonProps) {
+function Button({
+  children,
+  primary,
+  secondary,
+  success,
+  warning,
+  danger,
+  outline,
+  rounded,
+  loading,
+  ...rest
+}: ButtonProps) {
   const classes = className(rest.className, 'flex items-center px-3 py-1.5 border', {
+    'opacity-80': loading,
     'border-blue-500 bg-blue-500 text-white': primary,
     'border-gray-900 bg-gray-900 text-white': secondary,
     'border-green-500 bg-green-500 text-white': success,

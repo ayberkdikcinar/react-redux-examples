@@ -1,7 +1,7 @@
 interface album {
   id: string;
   title: string;
-  userId: string;
+  characterId: string;
 }
 
 export type { album };
