@@ -4,14 +4,20 @@ type ExpandableCardProps = {
   item?: any;
   children?: React.ReactNode;
   isExtendedDefault?: boolean;
+  onTrashClick?: () => void;
 };
-export default function ExpandableCard({ item, isExtendedDefault = false, children }: ExpandableCardProps) {
+export default function ExpandableCard({
+  item,
+  isExtendedDefault = false,
+  children,
+  onTrashClick,
+}: ExpandableCardProps) {
   const [isExtended, setIsExtended] = useState(isExtendedDefault);
 
   return (
-    <div className='mb-2 border rounded '>
+    <div className='mb-2 border rounded'>
       <div className='flex p-2 justify-between items-center'>
-        <button className='bg-red-500 text-white border-2 px-3 py-2'>
+        <button className='bg-red-500 text-white border-2 px-3 py-2' onClick={onTrashClick}>
           <FaTrash />
         </button>
         <div>{item?.name}</div>

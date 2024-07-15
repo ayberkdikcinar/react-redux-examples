@@ -35,17 +35,13 @@ export default function AlbumsList({ character }: AlbumsListProps) {
     }
 
     if (albums.length) {
-      return (
-        <div>
-          {albums.map((album: any) => {
-            return (
-              <ExpandableCard key={album.id} item={album}>
-                <PhotosList album={album}></PhotosList>
-              </ExpandableCard>
-            );
-          })}
-        </div>
-      );
+      return albums.map((album: any) => {
+        return (
+          <ExpandableCard key={album.id} item={album}>
+            <PhotosList album={album}></PhotosList>
+          </ExpandableCard>
+        );
+      });
     }
 
     return null;

@@ -32,17 +32,13 @@ export default function CharactersList() {
       return <div>Error: {characters.error.message}</div>;
     }
     if (characters.data) {
-      return (
-        <div>
-          {characters.data.map((character) => {
-            return (
-              <ExpandableCard item={character} key={character.id}>
-                <AlbumsList character={character}></AlbumsList>
-              </ExpandableCard>
-            );
-          })}
-        </div>
-      );
+      return characters.data.map((character) => {
+        return (
+          <ExpandableCard item={character} key={character.id}>
+            <AlbumsList character={character}></AlbumsList>
+          </ExpandableCard>
+        );
+      });
     }
 
     return null;

@@ -43,8 +43,8 @@ function Button({
   });
 
   return (
-    <button {...rest} className={classes}>
-      {children}
+    <button {...rest} className={classes} disabled={loading}>
+      {loading ? <FaSpinner className='animate-spin' /> : children}
     </button>
   );
 }
