@@ -7,7 +7,7 @@ const photosApi = createApi({
     baseUrl: 'http://localhost:3005',
   }),
   reducerPath: 'photos',
-  tagTypes: ['Photo'],
+  tagTypes: ['Photo', 'AlbumPhotos'],
   endpoints(builder) {
     return {
       fetchPhotos: builder.query({
@@ -20,8 +20,12 @@ const photosApi = createApi({
             method: 'GET',
           };
         },
-        providesTags: (result, error, args) => {
-          return [{ type: 'Photo', id: args.id }];
+        providesTags: (result, error, album) => {
+          const tags = result.map((photo: photo) => {
+            return { type: 'Photo', id: photo.id };
+          });
+          tags.push({ type: 'AlbumPhotos', id: album.id });
+          return tags;
         },
       }),
       addPhoto: builder.mutation({
@@ -33,7 +37,7 @@ const photosApi = createApi({
           };
         },
         invalidatesTags: (result, error, args) => {
-          return [{ type: 'Photo', id: args.albumId }];
+          return [{ type: 'AlbumPhotos', id: args.albumId }];
         },
       }),
       removePhoto: builder.mutation({
@@ -44,7 +48,7 @@ const photosApi = createApi({
           };
         },
         invalidatesTags: (result, error, photo) => {
-          return [{ type: 'Photo', id: photo.albumId }];
+          return [{ type: 'Photo', id: photo.id }];
         },
       }),
     };

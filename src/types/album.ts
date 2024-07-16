@@ -1,6 +1,6 @@
 interface album {
   id: string;
-  title: string;
+  name: string;
   characterId: string;
 }
 

@@ -1,32 +1,33 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch, addCharacter, fetchAlbums } from '../store';
+import { RootState, AppDispatch, addCharacter, fetchAlbums, useFetchAlbumsQuery, useAddAlbumMutation } from '../store';
 import Skeleton from './Skeleton';
 import ExpandableCard from './ExpandableCard';
 import { character } from '../types/character';
 import PhotosList from './PhotosList';
 import ListHeader from './ListHeader';
+import AlbumItem from './AlbumItem';
+import { album } from '../types/album';
+import { faker } from '@faker-js/faker';
 
 type AlbumsListProps = {
   character: character;
 };
 export default function AlbumsList({ character }: AlbumsListProps) {
-  const [albums, setAlbums] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
+  const albums = useFetchAlbumsQuery(character);
+  const [addAlbum, addAlbumResult] = useAddAlbumMutation();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const response = await dispatch(fetchAlbums(character)).unwrap();
-      setAlbums(response);
-      setIsLoading(false);
+  function handleAdd() {
+    const newAlbum: album = {
+      characterId: character.id,
+      id: new Date().getTime().toString(),
+      name: faker.name.fullName(),
     };
-    fetchData();
-  }, [dispatch]);
+    addAlbum(newAlbum);
+  }
 
   function render() {
-    if (isLoading) {
+    if (albums.isFetching) {
       return (
         <div>
           <Skeleton times={2} className='h-10 w-full' />
@@ -34,13 +35,9 @@ export default function AlbumsList({ character }: AlbumsListProps) {
       );
     }
 
-    if (albums.length) {
-      return albums.map((album: any) => {
-        return (
-          <ExpandableCard key={album.id} item={album}>
-            <PhotosList album={album}></PhotosList>
-          </ExpandableCard>
-        );
+    if (albums.data) {
+      return albums.data.map((album: any) => {
+        return <AlbumItem albumItem={album} key={album.id}></AlbumItem>;
       });
     }
 
@@ -48,7 +45,7 @@ export default function AlbumsList({ character }: AlbumsListProps) {
   }
   return (
     <div>
-      <ListHeader label='Album' onClick={() => console.log('onn..')} />
+      <ListHeader label='Album' onClick={handleAdd} />
       <div>{render()}</div>
     </div>
   );

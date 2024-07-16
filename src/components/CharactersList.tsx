@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch, addCharacter } from '../store';
 import { fetchCharacters } from '../store';
 import Skeleton from './Skeleton';
-import ExpandableCard from './ExpandableCard';
-import AlbumsList from './AlbumsList';
 import ListHeader from './ListHeader';
+import CharacterItem from './CharacterItem';
 
 export default function CharactersList() {
   const characters = useSelector((state: RootState) => state.characters);
@@ -33,11 +32,7 @@ export default function CharactersList() {
     }
     if (characters.data) {
       return characters.data.map((character) => {
-        return (
-          <ExpandableCard item={character} key={character.id}>
-            <AlbumsList character={character}></AlbumsList>
-          </ExpandableCard>
-        );
+        return <CharacterItem characterItem={character} key={character.id}></CharacterItem>;
       });
     }
 
@@ -45,7 +40,7 @@ export default function CharactersList() {
   }
   return (
     <div>
-      <ListHeader label='Character' onClick={() => console.log('onn..')} />
+      <ListHeader label='Character' onClick={handleCharacterAdd} />
       <div>{render()}</div>
     </div>
   );

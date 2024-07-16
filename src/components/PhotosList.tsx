@@ -1,11 +1,12 @@
 import React from 'react';
 import { album } from '../types/album';
 import { photo } from '../types/photo';
-import { useAddPhotoMutation, useFetchPhotosQuery, useRemovePhotoMutation } from '../store';
-import ExpandableCard from './ExpandableCard';
+import { useAddPhotoMutation, useFetchPhotosQuery } from '../store';
+
 import Skeleton from './Skeleton';
 import ListHeader from './ListHeader';
 import { faker } from '@faker-js/faker';
+import PhotoItem from './PhotoItem';
 type PhotosListProps = {
   album: album;
 };
@@ -13,21 +14,16 @@ type PhotosListProps = {
 export default function PhotosList({ album }: PhotosListProps) {
   const photos = useFetchPhotosQuery(album);
   const [addPhoto, resultAdd] = useAddPhotoMutation();
-  const [removePhoto, resultRemove] = useRemovePhotoMutation();
 
   async function handleAddPhoto() {
     const randomImageUrl = faker.image.imageUrl(500, 500, 'cat', true);
-    const photo: photo = {
+    const newPhoto: photo = {
       albumId: album.id,
       id: new Date().getTime().toString(),
       imageUrl: randomImageUrl,
       title: randomImageUrl.toString(),
     };
-    await addPhoto(photo);
-  }
-
-  function handleRemovePhoto(photo: photo) {
-    removePhoto(photo);
+    await addPhoto(newPhoto);
   }
 
   function render() {
@@ -44,19 +40,7 @@ export default function PhotosList({ album }: PhotosListProps) {
 
     if (photos.data) {
       return photos.data.map((photo: photo) => {
-        const photoWithName = { ...photo, name: photo.title };
-        return (
-          <ExpandableCard
-            key={photo.id}
-            item={photoWithName}
-            isExtendedDefault={true}
-            onTrashClick={() => handleRemovePhoto(photo)}
-          >
-            <div>
-              <img src={`${photo.imageUrl}`} alt='d' width={100} height={100} />
-            </div>
-          </ExpandableCard>
-        );
+        return <PhotoItem key={photo.id} photoItem={photo}></PhotoItem>;
       });
     }
 
@@ -66,7 +50,7 @@ export default function PhotosList({ album }: PhotosListProps) {
   return (
     <div>
       <ListHeader label='Photo' onClick={handleAddPhoto} isLoading={resultAdd.isLoading} />
-      <div>{render()}</div>
+      <div className='mx-8 flex flex-row flex-wrap justify-center'>{render()}</div>
     </div>
   );
 }
