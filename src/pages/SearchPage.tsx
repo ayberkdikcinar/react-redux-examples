@@ -1,17 +1,16 @@
 import { useLoaderData } from 'react-router-dom';
-import { PackageObject } from '../services/types/package-types';
 import PackageList from '../components/PackageList';
+import { SearchLoaderResult } from '../utils/searchLoader';
 
 export default function SearchPage() {
-  const result = useLoaderData() as PackageObject[];
-  console.log('res:', result);
+  const result = useLoaderData() as SearchLoaderResult;
 
   if (!result) {
     return 'loading...';
   }
   return (
     <div>
-      <PackageList packages={result.map((obj) => obj.package)} />
+      <PackageList packages={result.searchResults.map((obj) => obj.package)} />
     </div>
   );
 }

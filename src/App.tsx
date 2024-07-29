@@ -1,10 +1,11 @@
-import { createBrowserRouter, json, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
 
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
 import DetailsPage from './pages/DetailsPage';
-import { searchPackage } from './services/registry-service';
+
+import { searchLoader } from './utils/searchLoader';
 
 const router = createBrowserRouter([
   {
@@ -18,14 +19,7 @@ const router = createBrowserRouter([
       {
         path: '/search',
         element: <SearchPage />,
-        loader: async ({ request }) => {
-          const url = new URL(request.url);
-          const term = url.searchParams.get('term');
-          if (!term) {
-            throw new Error('term not found.');
-          }
-          return json(await searchPackage(term));
-        },
+        loader: async ({ request }) => await searchLoader(request),
       },
       {
         path: '/details/:name',
