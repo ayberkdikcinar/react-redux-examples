@@ -21,10 +21,10 @@ const router = createBrowserRouter([
         loader: async ({ request }) => {
           const url = new URL(request.url);
           const term = url.searchParams.get('term');
-          if (term) {
-            return json(await searchPackage(term));
+          if (!term) {
+            throw new Error('term not found.');
           }
-          return null;
+          return json(await searchPackage(term));
         },
       },
       {

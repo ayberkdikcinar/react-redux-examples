@@ -1,24 +1,7 @@
 import axios from 'axios';
+import { PackageObject } from './types/package-types';
 
-interface Package {
-  name: string;
-  version: string;
-  description: string;
-  keywords: string[];
-  author: {
-    name: string;
-    email: string;
-  };
-  publisher: {
-    username: string;
-    email: string;
-  };
-}
-
-interface PackageObject {
-  package: Package;
-}
-export interface SearchPackageResponse {
+interface SearchPackageResponse {
   data: {
     objects: PackageObject[];
   };
@@ -26,9 +9,9 @@ export interface SearchPackageResponse {
 
 function getPackageDetails() {}
 
-async function searchPackage(text?: string) {
+async function searchPackage(text?: string): Promise<PackageObject[]> {
   const response: SearchPackageResponse = await axios.get(`https://registry.npmjs.org/-/v1/search?text=${text}`);
-  return response;
+  return response.data.objects;
 }
 
 export { searchPackage, getPackageDetails };
