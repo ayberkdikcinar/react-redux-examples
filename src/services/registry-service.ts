@@ -18,7 +18,7 @@ async function searchPackage(text?: string): Promise<PackageObject[]> {
 }
 
 async function getTopPackages(): Promise<PackageDetails[]> {
-  const packNames = ['react', 'vite', 'aws', 'axios'];
+  const packNames = ['eslint-plugin-react', 'react-redux', 'aws-sdk', 'axios'];
   const promises = packNames.map(async (name) => await getPackageDetails(name));
   const response = await Promise.all(promises);
 
