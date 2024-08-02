@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PackageObject } from './types/package-types';
+import { PackageDetails, PackageObject } from './types/package-types';
 
 interface SearchPackageResponse {
   data: {
@@ -7,7 +7,10 @@ interface SearchPackageResponse {
   };
 }
 
-function getPackageDetails() {}
+async function getPackageDetails(name: string): Promise<PackageDetails> {
+  const response = await axios.get(`https://registry.npmjs.org/${name}`);
+  return response.data as PackageDetails;
+}
 
 async function searchPackage(text?: string): Promise<PackageObject[]> {
   const response: SearchPackageResponse = await axios.get(`https://registry.npmjs.org/-/v1/search?text=${text}`);

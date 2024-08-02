@@ -10,8 +10,8 @@ export default function PackageList({ packages }: PackageListProps) {
   return (
     <div className='m-2'>
       {packages.map((pkg, i) => (
-        <Fragment>
-          <PackageItem key={i} packageSummary={pkg} />
+        <Fragment key={i}>
+          <PackageItem packageSummary={pkg} />
           <div className='border-b-2'></div>
         </Fragment>
       ))}

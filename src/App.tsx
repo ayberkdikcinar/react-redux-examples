@@ -6,6 +6,7 @@ import SearchPage from './pages/SearchPage';
 import DetailsPage from './pages/DetailsPage';
 
 import { searchLoader } from './utils/searchLoader';
+import { detailsLoader } from './utils/detailsLoader';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       {
         path: '/details/:name',
         element: <DetailsPage />,
+        loader: detailsLoader,
       },
     ],
   },

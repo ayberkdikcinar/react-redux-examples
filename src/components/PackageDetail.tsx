@@ -1,5 +1,9 @@
-import React from 'react';
+import { PackageDetails } from '../services/types/package-types';
 
-export default function PackageDetail() {
-  return <div></div>;
+interface PackageDetailsProps {
+  pack: PackageDetails;
+}
+export default function PackDetails({ pack }: PackageDetailsProps) {
+  console.log(pack);
+  return <div>{pack.name}</div>;
 }
