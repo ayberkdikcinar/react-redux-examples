@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { PackageSummary } from '../services/types/package-types';
-import TagList from './TagLiat';
+import TagList from './TagList';
 
 interface PackageItemProps {
   packageSummary: PackageSummary;

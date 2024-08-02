@@ -17,4 +17,12 @@ async function searchPackage(text?: string): Promise<PackageObject[]> {
   return response.data.objects;
 }
 
-export { searchPackage, getPackageDetails };
+async function getTopPackages(): Promise<PackageDetails[]> {
+  const packNames = ['react', 'vite', 'aws', 'axios'];
+  const promises = packNames.map(async (name) => await getPackageDetails(name));
+  const response = await Promise.all(promises);
+
+  return response as PackageDetails[];
+}
+
+export { searchPackage, getPackageDetails, getTopPackages };

@@ -8,9 +8,9 @@ export default function Header({ title }: HeaderProps) {
   return (
     <div className='flex items-center justify-between p-2 m-2 bg-amber-400 border-2 '>
       <Link to='/'>
-        <h3>{title}</h3>
+        <h3 className='text-2xl text-white'>{title}</h3>
       </Link>
-      <Search></Search>
+      <Search />
     </div>
   );
 }

@@ -8,7 +8,7 @@ interface PackageListProps {
 
 export default function PackageList({ packages }: PackageListProps) {
   return (
-    <div className='m-2'>
+    <div>
       {packages.map((pkg, i) => (
         <Fragment key={i}>
           <PackageItem packageSummary={pkg} />
