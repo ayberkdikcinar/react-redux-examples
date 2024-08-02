@@ -11,12 +11,12 @@ export default function PackageItem({ packageSummary }: PackageItemProps) {
     <div className='hover:bg-gray-200'>
       <Link to={`/details/${encodeURIComponent(packageSummary.name)}`}>
         <div className='flex items-center justify-between '>
-          <div>{packageSummary.name}</div>
-          <div>{packageSummary.version}</div>
+          <p>{packageSummary.name}</p>
+          <p className='text-gray-500'>{packageSummary.version}</p>
         </div>
         <div className='p-2'>
           <p className='text-blue-400 text-sm'>{packageSummary.description}</p>
-          <div className='text-red-400'>{packageSummary.keywords && <TagList tags={packageSummary.keywords} />}</div>
+          {packageSummary.keywords && <TagList tags={packageSummary.keywords} />}
         </div>
       </Link>
     </div>

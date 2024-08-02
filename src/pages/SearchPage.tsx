@@ -9,7 +9,7 @@ export default function SearchPage() {
     return 'loading...';
   }
   return (
-    <div className='px-4'>
+    <div className='px-4 m-2'>
       <PackageList packages={result.searchResults.map((obj) => obj.package)} />
     </div>
   );
